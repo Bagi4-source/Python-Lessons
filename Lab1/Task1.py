@@ -30,9 +30,3 @@ def f3(*args):
         if sum_of_digits_x > sum_of_digits(x):
             result *= x
     return result
-
-
-if __name__ == '__main__':
-    print(f"f1: {f1(50)}")
-    print(f"f2: {f2(50)}")
-    print(f"f3: {f3(50)}")
