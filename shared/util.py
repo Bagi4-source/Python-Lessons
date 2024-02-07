@@ -8,6 +8,16 @@ def sum_of_digits(x: int, f=lambda x: True) -> int:
     return s
 
 
+def is_simple(x: int) -> bool:
+    if x < 1:
+        return False
+    if x < 3:
+        return True
+    if x % 2 == 0:
+        return False
+    return len(get_divs(x)) == 2
+
+
 def get_divs(x: int) -> list:
     result = []
     for i in range(1, x + 1):

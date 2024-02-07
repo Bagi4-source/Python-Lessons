@@ -1,15 +1,4 @@
-from shared.util import get_divs, sum_of_digits
-
-
-def is_simple(x: int) -> bool:
-    if x < 1:
-        return False
-    if x < 3:
-        return True
-    if x % 2 == 0:
-        return False
-    return len(get_divs(x)) == 2
-
+from shared.util import get_divs, sum_of_digits, is_simple
 
 def f1(*args):
     result = 0
