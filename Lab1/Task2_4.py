@@ -1,12 +1,12 @@
 from re import sub, findall
 
 
-def sum_of_ru_symbols(s: str) -> int:
+def task2(s: str) -> int:
     ru_string = sub(r"[^а-яА-Я]", "", s)
     return len(ru_string)
 
 
-def is_latin_palindrome(s: str) -> bool:
+def task3(s: str) -> bool:
     string = sub(r"[^a-z]", "", s)
     n = len(string)
     for i in range(n // 2):
@@ -15,5 +15,5 @@ def is_latin_palindrome(s: str) -> bool:
     return True
 
 
-def find_date(s: str) -> list[str]:
+def task4(s: str) -> list[str]:
     return findall(r"\d{1,2}\.\d{1,2}\.\d{4}", s)
