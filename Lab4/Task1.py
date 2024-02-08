@@ -4,7 +4,7 @@ def main():
         numbers = list(map(int, lines[1:]))
 
     n, k = map(int, lines[0].split(" "))
-    numbers = sorted(numbers)
+    numbers.sort()
     result = sum(numbers[n - k - 1:n])
     print(result)
 
