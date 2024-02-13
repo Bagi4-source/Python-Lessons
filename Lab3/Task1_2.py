@@ -56,9 +56,9 @@ class Polygon(object):
 
 class Triangle(Polygon):
     def __init__(self, a: Point, b: Point, c: Point):
-        if not (a.dist(b) + b.dist(c) >= a.dist(c) and
-                a.dist(b) + a.dist(c) >= b.dist(c) and
-                b.dist(c) + a.dist(c) >= a.dist(b)):
+        if not (a.dist(b) + b.dist(c) > a.dist(c) and
+                a.dist(b) + a.dist(c) > b.dist(c) and
+                b.dist(c) + a.dist(c) > a.dist(b)):
             raise ValueError("Invalid triangle")
 
         super().__init__([a, b, c])
