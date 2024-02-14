@@ -6,10 +6,11 @@ import {
     TableColumn,
     TableRow,
     TableCell,
-    getKeyValue, Card, Input, Button, Selection,
+    getKeyValue, Card, Input, Button, Selection, Pagination,
 } from "@nextui-org/react";
 import {useCallback, useEffect, useState} from "react";
 import {Response} from "../types";
+import {useCookies} from "react-cookie";
 
 
 export function SpaceTable({route, columns}: {
@@ -20,9 +21,11 @@ export function SpaceTable({route, columns}: {
         results: [],
         count: 0
     });
+    const [cookies] = useCookies(['csrftoken']);
     const [isLoading, setLoading] = useState(true);
     const [item, setItem] = useState<{ [k: string]: string }>({});
     const [reload, setReload] = useState(false);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         fetch(route)
@@ -36,12 +39,13 @@ export function SpaceTable({route, columns}: {
     const onClick = useCallback(async () => {
         const pk = item["pk"];
         const method = pk === undefined ? "POST" : "PUT";
-        const r = pk === undefined ? route : `${route}/${pk}/`;
+        const r = pk === undefined ? route : `${route}${pk}/`;
         await fetch(r, {
             method,
             body: JSON.stringify(item),
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                "X-csrftoken": cookies.csrftoken
             }
         });
         setReload(prevState => !prevState);
@@ -65,6 +69,20 @@ export function SpaceTable({route, columns}: {
                aria-label="Spread table"
                bottomContentPlacement="outside"
                onSelectionChange={onChangeSelection}
+               bottomContent={
+                   <div className={"flex justify-center"}>
+                       <Pagination
+                           isCompact
+                           showControls
+                           showShadow
+                           initialPage={1}
+                           page={page}
+                           total={1}
+                           onChange={(page) => setPage(page)}
+                       />
+                   </div>
+
+               }
         >
             <TableHeader>
                 {Object.entries(columns).map(([key, {name}]) =>

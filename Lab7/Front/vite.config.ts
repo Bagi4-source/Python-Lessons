@@ -7,6 +7,7 @@ export default defineConfig({
         proxy: {
             "/api/": { // Временный костыль, пока эти запросы не передут на норм path
                 target: "http://localhost:8000/",
+                cookieDomainRewrite: false,
                 changeOrigin: true,
                 secure: false,
             },
