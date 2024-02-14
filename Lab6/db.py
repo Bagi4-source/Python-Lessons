@@ -166,7 +166,7 @@ class Database:
         return Moon.mapper(moon)
 
     def get_moons_by_planet_id(self, planet_id: int) -> list[Moon]:
-        moons = self.cursor.execute("SELECT * FROM moons WHERE planet_id=?", (planet_id,)).fetchmany()
+        moons = self.cursor.execute("SELECT * FROM moons WHERE planet_id=?", (planet_id,)).fetchall()
         return list(map(Moon.mapper, moons))
 
     def get_star_by_id(self, id: int) -> Star:
@@ -174,7 +174,7 @@ class Database:
         return Star.mapper(star)
 
     def get_stars(self) -> list[Star]:
-        stars = self.cursor.execute("SELECT * FROM stars").fetchmany()
+        stars = self.cursor.execute("SELECT * FROM stars").fetchall()
         return list(map(Star.mapper, stars))
 
     def close(self):
