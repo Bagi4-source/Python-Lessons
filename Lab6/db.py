@@ -91,13 +91,13 @@ class Database:
             moon_id = int(moon.getElementsByTagName("id")[0].firstChild.nodeValue)
             moon_name = moon.getElementsByTagName("name")[0].firstChild.nodeValue
             moon_planet_id = int(moon.getElementsByTagName("planet_id")[0].firstChild.nodeValue)
-            pass
+            self.save_moon(Moon(id=moon_id, name=moon_name, planet_id=moon_planet_id))
 
         for star in stars:
             star_id = int(star.getElementsByTagName("id")[0].firstChild.nodeValue)
             star_name = star.getElementsByTagName("name")[0].firstChild.nodeValue
             star_mass = float(star.getElementsByTagName("mass")[0].firstChild.nodeValue)
-            pass
+            self.save_star(Star(id=star_id, name=star_name, mass=star_mass))
 
     def create_table(self):
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS planets (
@@ -133,6 +133,18 @@ class Database:
         self.cursor.execute('''INSERT INTO planets (id, name, radius, star_id) VALUES (?, ?, ?, ?)
          ON CONFLICT(id) DO UPDATE SET name = ?, radius = ?, star_id = ?''', (
             planet.id, planet.name, planet.radius, planet.star_id, planet.name, planet.radius, planet.star_id))
+        self.connection.commit()
+
+    def save_moon(self, moon: Moon):
+        self.cursor.execute('''INSERT INTO moons (id, name, planet_id) VALUES (?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET name = ?, planet_id = ?''', (
+            moon.id, moon.name, moon.planet_id, moon.name, moon.planet_id))
+        self.connection.commit()
+
+    def save_star(self, star: Star):
+        self.cursor.execute('''INSERT INTO stars (id, name, mass) VALUES (?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET name = ?, mass = ?''', (
+            star.id, star.name, star.mass, star.name, star.mass))
         self.connection.commit()
 
     def add_star(self, star: StarRequest):
