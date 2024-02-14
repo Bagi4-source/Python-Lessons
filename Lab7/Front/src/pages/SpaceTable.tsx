@@ -14,7 +14,7 @@ import {Response} from "../types";
 
 export function SpaceTable({route, columns}: {
     route: string,
-    columns: { [k: string]: { name: string, type: Object } }
+    columns: { [k: string]: { name: string, typeCheck: (str: string) => boolean } }
 }) {
     const [data, setData] = useState<Response<{ [k: string]: string }>>({
         results: [],
@@ -85,15 +85,17 @@ export function SpaceTable({route, columns}: {
         </Table>
         <Card className={"col-span-1 flex gap-3 p-4"}>
             {
-                Object.entries(columns).map(([key, {name}]) => {
+                Object.entries(columns).map(([key, {name, typeCheck}]) => {
                     if (key === 'pk') return;
                     return <Input
                         type={"text"}
                         size={"sm"}
                         name={key}
                         value={item[key] ?? ""}
+                        isInvalid={!typeCheck(item[key])}
                         onValueChange={(value) => {
                             setItem({...item, [key]: value})
+                            console.log(typeCheck(value))
                         }}
                         key={key}
                         label={name}

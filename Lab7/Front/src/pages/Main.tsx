@@ -10,19 +10,19 @@ export const Main = () => {
                     columns={{
                         "pk": {
                             name: "ID",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         },
                         "name": {
                             name: "Название",
-                            type: String
+                            typeCheck: (_: string) => true
                         },
                         "radius": {
                             name: "Радиус",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         },
                         "star_id": {
                             name: "ID звезды",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         }
                     }}
                     route={"api/Planets/"}/>
@@ -32,15 +32,15 @@ export const Main = () => {
                     columns={{
                         "pk": {
                             name: "ID",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         },
                         "name": {
                             name: "Название",
-                            type: String
+                            typeCheck: (_: string) => true
                         },
                         "planet_id": {
                             name: "ID планеты",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         }
                     }}
                     route={"api/Moons/"}/>
@@ -50,15 +50,15 @@ export const Main = () => {
                     columns={{
                         "pk": {
                             name: "ID",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         },
                         "name": {
                             name: "Название",
-                            type: String
+                            typeCheck: (_: string) => true
                         },
                         "mass": {
                             name: "Масса",
-                            type: Number
+                            typeCheck: (str: string) => !isNaN(parseInt(str))
                         }
                     }}
                     route={"api/Stars/"}/>
