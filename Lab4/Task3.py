@@ -69,9 +69,7 @@ def task3():
 
 
 def main():
-    while True:
-        ip = ip_to_int(input("Enter IP Address: "))
-        print(f"{ip:b}")
+    task3()
 
 
 if __name__ == '__main__':
